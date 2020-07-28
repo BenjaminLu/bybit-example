@@ -56,6 +56,12 @@ class Bybit {
     return params
   }
 
+  async getWalletBalance (params) {
+    params = this.addAuthDataGet(params)
+    const res = await axios.get(`${this.baseURL}/v2/private/wallet/balance?${params}`)
+    return res.data
+  }
+
   async getKlines (params) {
     params = this.addAuthDataGet(params)
     const res = await axios.get(`${this.baseURL}/v2/public/mark-price-kline?${params}`)

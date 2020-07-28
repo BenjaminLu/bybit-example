@@ -24,14 +24,20 @@ const fetchOrderbook = async () => {
     //   console.log(bybit.getOrderbook('BTCUSD'))
     // }, 100)
 
-    const response = await bybit.getKlines({
-      symbol: 'BTCUSD',
-      interval: '15', // 1 3 5 15 30 60 120 240 360 720 "D" "M" "W" "Y"
-      from: Math.floor(Date.now() / 1000) - 86400,
-      limit: 200
+    const response = await bybit.getWalletBalance({
+      coin: 'BTC'
     })
 
     console.log(JSON.stringify(response))
+
+    // const response = await bybit.getKlines({
+    //   symbol: 'BTCUSD',
+    //   interval: '15', // 1 3 5 15 30 60 120 240 360 720 "D" "M" "W" "Y"
+    //   from: Math.floor(Date.now() / 1000) - 86400,
+    //   limit: 200
+    // })
+
+    // console.log(JSON.stringify(response))
 
     // const response = await bybit.getOrders({ symbol: 'BTCUSD', order_status: 'New'}) // Created, New, Rejected, PartiallyFilled, PartiallyFilled, Filled, Cancelled, PendingCancel 
     // console.log(JSON.stringify(response))
