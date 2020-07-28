@@ -56,6 +56,12 @@ class Bybit {
     return params
   }
 
+  async getKlines (params) {
+    params = this.addAuthDataGet(params)
+    const res = await axios.get(`${this.baseURL}/v2/public/mark-price-kline?${params}`)
+    return res.data
+  }
+
   async setTradingStop (params) {
     params = this.addAuthDataPost(params)
     const res = await axios.post(`${this.baseURL}/open-api/position/trading-stop`, params)

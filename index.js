@@ -1,5 +1,10 @@
 const Bybit = require('./bybit')
 
+const account = {
+  apikey: '',
+  secret: ''
+}
+
 const testAccount = {
   apikey: '',
   secret: '',
@@ -15,9 +20,18 @@ const fetchOrderbook = async () => {
     bybit.connect()
     bybit.subscribe('BTCUSD')
 
-    setInterval(() => {
-      console.log(bybit.getOrderbook('BTCUSD'))
-    }, 100)
+    // setInterval(() => {
+    //   console.log(bybit.getOrderbook('BTCUSD'))
+    // }, 100)
+
+    const response = await bybit.getKlines({
+      symbol: 'BTCUSD',
+      interval: '15', // 1 3 5 15 30 60 120 240 360 720 "D" "M" "W" "Y"
+      from: Math.floor(Date.now() / 1000) - 86400,
+      limit: 200
+    })
+
+    console.log(JSON.stringify(response))
 
     // const response = await bybit.getOrders({ symbol: 'BTCUSD', order_status: 'New'}) // Created, New, Rejected, PartiallyFilled, PartiallyFilled, Filled, Cancelled, PendingCancel 
     // console.log(JSON.stringify(response))
@@ -50,7 +64,7 @@ const fetchOrderbook = async () => {
     //   // trailing_stop: 200,
     //   // new_trailing_active: 10800,
     // })
-    console.log(JSON.stringify(response))
+    // console.log(JSON.stringify(response))
   } catch (e) {
     console.error(e)
   }
